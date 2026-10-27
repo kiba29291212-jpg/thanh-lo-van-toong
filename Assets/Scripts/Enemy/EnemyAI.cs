@@ -158,8 +158,7 @@ public class EnemyAI : MonoBehaviour
         agent.speed = returnSpeed;
         agent.SetDestination(startPosition);
 
-        if (!agent.pathPending &&
-            agent.remainingDistance <= agent.stoppingDistance)
+        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
         {
             isReturning = false;
             hasDetectedPlayer = false;
