@@ -1,5 +1,5 @@
 
-# UNTITLED — A 3D Horror Puzzle Game
+# LAI (LOOK AT IT) — A 3D Horror Puzzle Game
 
 > **Solve the mystery. Stay quiet. Don't let it find you.**
 
@@ -7,7 +7,7 @@ Một trò chơi kinh dị 3D góc nhìn thứ nhất, nơi người chơi phả
 
 | Thông tin | Chi tiết |
 |---|---|
-| **Tên dự án** | LOOK AT ME |
+| **Tên dự án** | LOOK AT IT |
 | **Engine** | Unity |
 | **Language** | C# |
 | **Genre** | 3D Horror / Puzzle / Stealth / Exploration |
