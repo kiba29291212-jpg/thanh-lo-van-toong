@@ -7,7 +7,7 @@ Một trò chơi kinh dị 3D góc nhìn thứ nhất, nơi người chơi phả
 
 | Thông tin | Chi tiết |
 |---|---|
-| **Tên dự án** | UNTITLED (tên tạm thời) |
+| **Tên dự án** | LOOK AT ME |
 | **Engine** | Unity |
 | **Language** | C# |
 | **Genre** | 3D Horror / Puzzle / Stealth / Exploration |
