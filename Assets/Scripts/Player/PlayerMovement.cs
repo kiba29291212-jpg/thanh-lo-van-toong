@@ -67,8 +67,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckGround()
     {
-        isGrounded = controller.isGrounded ||
-            Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
+        isGrounded = controller.isGrounded || Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
 
         if (isGrounded && verticalVelocity < 0f)
         {
