@@ -223,6 +223,7 @@ public class EnemyAI : MonoBehaviour
 
     private void EnemyDie()
     {
+        ScoreControl.totalScore += 100;
         Destroy(gameObject);
     }
 }
