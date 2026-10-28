@@ -134,6 +134,7 @@ public class PlayerMovement : MonoBehaviour
         if (moveInput != Vector2.zero)
         {
             animator.SetBool("isWalking", true);
+
             if (isForward)
             {
                 animator.SetBool("walkForward", true);
@@ -150,15 +151,8 @@ public class PlayerMovement : MonoBehaviour
 
         float speed = inputActions.Player.Sprint.IsPressed() ? sprintSpeed : moveSpeed;
 
-        if (moveInput != Vector2.zero && speed > moveSpeed)
-        {
-            animator.SetBool("isRunning", true);
-        }
-        else
-        {
-            animator.SetBool("isRunning", false);
-        }
-        
-    }
+        bool isSprinting = moveInput != Vector2.zero && speed > moveSpeed && isForward;
 
+        animator.SetBool("isRunning", isSprinting);
+    }
 }
