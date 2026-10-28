@@ -1,12 +1,21 @@
 using UnityEngine;
+using TMPro;
 
 public class ScoreControl : MonoBehaviour
 {
-    [SerializeField] GameObject scoreBox;
+    [SerializeField] private GameObject scoreBox;
+
     public static float totalScore = 0f;
 
-    void Update()
+    private TMP_Text scoreText;
+
+    private void Awake()
     {
-        scoreBox.GetComponent<TMPro.TMP_Text>().text = "Score : " + totalScore;
+        scoreText = scoreBox.GetComponent<TMP_Text>();
+    }
+
+    private void Update()
+    {
+        scoreText.text = "Score : " + totalScore;
     }
 }
