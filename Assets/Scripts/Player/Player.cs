@@ -7,26 +7,16 @@ public class Player : MonoBehaviour
     [Header("Player Health")]
     [SerializeField] public float playerHealth = 100f;
     
-    private float currentHealth;
+    public static float playerCurrentHealth;
 
     private void Start()
     {
-        currentHealth = playerHealth;
+        playerCurrentHealth = playerHealth;
     }
 
     public void TakeDamage(float damage)
     {
-        currentHealth -= damage;
-        currentHealth = Mathf.Max(currentHealth, 0f);
-
-        if (currentHealth <= 0)
-        {
-            Die();
-        }
-    }
-
-    private void Die()
-    { 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        playerCurrentHealth -= damage;
+        playerCurrentHealth = Mathf.Max(playerCurrentHealth, 0f);
     }
 }
