@@ -81,10 +81,10 @@ public class MainMenuSystem : MonoBehaviour
             nameInputField.ActivateInputField();
             return;
         }
+        
+        D26PassGCC.D26MSV = NhapMaSinhVien;
 
         SceneManager.LoadScene("SampleScene");
-
-        D26PassGCC.D26MSV = NhapMaSinhVien;
     }
 
     private void ShowStatus(string message)
