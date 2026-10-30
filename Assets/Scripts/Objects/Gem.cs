@@ -18,6 +18,14 @@ public class GemControl : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         ScoreControl.totalScore += gemScore;
-        Destroy(gemObject);
+
+        ScoreControl scoreControl = FindFirstObjectByType<ScoreControl>();
+
+        if (scoreControl != null)
+        {
+            scoreControl.UpdateScoreUI();
+        }
+
+        Destroy(gameObject);
     }
 }

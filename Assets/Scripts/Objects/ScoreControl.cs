@@ -3,18 +3,16 @@ using TMPro;
 
 public class ScoreControl : MonoBehaviour
 {
-    [SerializeField] private GameObject scoreBox;
+    [SerializeField] private TMP_Text scoreText;
 
     public static float totalScore = 0f;
 
-    private TMP_Text scoreText;
-
-    private void Awake()
+    private void Start()
     {
-        scoreText = scoreBox.GetComponent<TMP_Text>();
+        UpdateScoreUI();
     }
 
-    private void Update()
+    public void UpdateScoreUI()
     {
         scoreText.text = "Score : " + totalScore;
     }

@@ -15,6 +15,8 @@ public class EnemyAI : MonoBehaviour
     [Header("Detection")]
     [SerializeField] private float detectionRange = 15f;
     [SerializeField] private float attackRange = 2f;
+    [SerializeField] private Transform eyePoint;
+    [SerializeField] private LayerMask visionMask = ~0;
 
     [Header("Combat")]
     [SerializeField] private float attackDamage = 10f;
@@ -55,17 +57,21 @@ public class EnemyAI : MonoBehaviour
 
         if (isAttacking)
         {
-            HandleAnimation();
+            LookAtPlayer();
+            HandleAnimation(true);
             return;
         }
 
         float distance = Vector3.Distance(transform.position, player.position);
 
-        if (distance <= detectionRange)
+        bool canSeePlayer = distance <= detectionRange && CanSeePlayer();
+
+        if (canSeePlayer)
         {
             hasDetectedPlayer = true;
             isWaiting = false;
             isReturning = false;
+            lostPlayerTimer = 0f;
 
             if (distance <= attackRange)
             {
@@ -109,7 +115,30 @@ public class EnemyAI : MonoBehaviour
             agent.isStopped = true;
         }
 
-        HandleAnimation();
+        HandleAnimation(canSeePlayer);
+    }
+
+    private bool CanSeePlayer()
+    {
+        Vector3 origin = eyePoint != null ? eyePoint.position : transform.position + Vector3.up;
+
+        Vector3 target = player.position + Vector3.up;
+        Vector3 direction = target - origin;
+
+        float distance = direction.magnitude;
+
+        if (distance <= 0.001f)
+        {
+            return true;
+        }
+
+        if (Physics.Raycast(origin, direction.normalized, out RaycastHit hit, distance, visionMask, QueryTriggerInteraction.Ignore))
+        {
+            return hit.transform == player ||
+                   hit.transform.IsChildOf(player);
+        }
+
+        return false;
     }
 
     private void ChasePlayer()
@@ -170,16 +199,12 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    private void HandleAnimation()
+    private void HandleAnimation(bool foundPlayer)
     {
         if (animator == null)
         {
             return;
         }
-
-        float distance = Vector3.Distance(transform.position, player.position);
-
-        bool foundPlayer = distance <= detectionRange;
 
         animator.SetBool("foundPlayer", foundPlayer);
         animator.SetBool("isAttack", isAttack);
@@ -188,6 +213,11 @@ public class EnemyAI : MonoBehaviour
 
     private void LookAtPlayer()
     {
+        if (player == null)
+        {
+            return;
+        }
+
         Vector3 direction = player.position - transform.position;
         direction.y = 0f;
 
@@ -215,7 +245,7 @@ public class EnemyAI : MonoBehaviour
         enemyCurrentHeath -= damage;
         enemyCurrentHeath = Mathf.Max(enemyCurrentHeath, 0f);
 
-        if (enemyCurrentHeath <= 0)
+        if (enemyCurrentHeath <= 0f)
         {
             EnemyDie();
         }
@@ -225,5 +255,24 @@ public class EnemyAI : MonoBehaviour
     {
         ScoreControl.totalScore += 100;
         Destroy(gameObject);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, detectionRange);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+
+        if (player != null)
+        {
+            Vector3 origin = eyePoint != null ? eyePoint.position : transform.position + Vector3.up;
+
+            Vector3 target = player.position + Vector3.up;
+
+            Gizmos.color = CanSeePlayer() ? Color.green : Color.red;
+            Gizmos.DrawLine(origin, target);
+        }
     }
 }
