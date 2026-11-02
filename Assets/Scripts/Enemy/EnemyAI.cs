@@ -247,14 +247,8 @@ public class EnemyAI : MonoBehaviour
 
         if (enemyCurrentHeath <= 0f)
         {
-            EnemyDie();
+            Destroy(gameObject);
         }
-    }
-
-    private void EnemyDie()
-    {
-        ScoreControl.totalScore += 100;
-        Destroy(gameObject);
     }
 
     private void OnDrawGizmosSelected()

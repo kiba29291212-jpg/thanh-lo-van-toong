@@ -4076,10 +4076,10 @@ MonoBehaviour:
   interactDistance: 4
   chestLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   D26PASS:
   - 01
-  passSceneName: PASS
+  passSceneName: WIN
   failSceneName: LOSE
 --- !u!1 &1363937030
 GameObject:
