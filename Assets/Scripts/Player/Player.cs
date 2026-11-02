@@ -18,5 +18,16 @@ public class Player : MonoBehaviour
     {
         playerCurrentHealth -= damage;
         playerCurrentHealth = Mathf.Max(playerCurrentHealth, 0f);
+
+        if (playerCurrentHealth <= 0f)
+        {
+            Die();
+        }
     }
+
+    private void Die()
+    {
+        SceneManager.LoadScene("LOSE");
+    }
+
 }
